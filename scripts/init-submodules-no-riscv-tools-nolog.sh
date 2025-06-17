@@ -89,7 +89,6 @@ cd "$RDIR"
             generators/ara \
             generators/nvdla \
             toolchains/libgloss \
-            generators/gemmini \
             generators/rocket-chip \
             generators/compress-acc \
             generators/vexiiriscv \
@@ -102,7 +101,10 @@ cd "$RDIR"
             tools/dsptools \
             tools/rocket-dsp-utils \
             tools/circt \
-            vlsi/hammer-mentor-plugins
+            vlsi/hammer-mentor-plugins \
+            generators/gemmini/software/gemmini-rocc-tests/riscv-tests \
+            generators/gemmini/software/gemmini-rocc-tests/rocc-software \
+            generators/gemmini/software/onnxruntime-riscv
         do
             "$1" "${name%/}"
         done
@@ -142,10 +144,20 @@ cd "$RDIR"
     git submodule update --init generators/ara || exit 1
     git -C generators/ara submodule update --init ara || exit 1
 
-    # Non-recursive clone to exclude gemmini-software
-    submodule_name="generators/gemmini"
-    git submodule update --init generators/gemmini || exit 1
-    git -C generators/gemmini/ submodule update --init --recursive software/gemmini-rocc-tests || exit 1
+    # # Non-recursive clone to exclude gemmini-software
+    # submodule_name="generators/gemmini"
+    # git submodule update --init generators/gemmini || exit 1
+    # git -C generators/gemmini/ submodule update --init --recursive software/gemmini-rocc-tests || exit 1
+    
+    # Initialize gemmini's internal submodules (now that gemmini is a subtree)
+    submodule_name="generators/gemmini/software/gemmini-rocc-tests/riscv-tests"
+    git submodule update --init generators/gemmini/software/gemmini-rocc-tests/riscv-tests || exit 1
+
+    submodule_name="generators/gemmini/software/gemmini-rocc-tests/rocc-software"
+    git submodule update --init generators/gemmini/software/gemmini-rocc-tests/rocc-software || exit 1
+
+    submodule_name="generators/gemmini/software/onnxruntime-riscv"
+    git submodule update --init generators/gemmini/software/onnxruntime-riscv || exit 1
 
     # Non-recursive clone
     submodule_name="generators/rocket-chip"
