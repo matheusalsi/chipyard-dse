@@ -160,3 +160,12 @@
 [submodule "generators/radiance"]
 	path = generators/radiance
 	url = https://github.com/ucb-bar/radiance.git
+[submodule "rocc-software"]
+	path = generators/gemmini/software/gemmini-rocc-tests/rocc-software
+	url = https://github.com/ibm/rocc-software
+[submodule "riscv-tests"]
+	path = generators/gemmini/software/gemmini-rocc-tests/riscv-tests
+	url = https://github.com/riscv/riscv-tests.git
+[submodule "software/onnxruntime-riscv"]
+	path = generators/gemmini/software/onnxruntime-riscv
+	url = https://github.com/pranav-prakash/onnxruntime-riscv.git
